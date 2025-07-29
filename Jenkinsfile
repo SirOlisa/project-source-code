@@ -7,7 +7,7 @@ pipeline{
         // sonar cloud analysis 
         stage('CompileandRunSonarAnalysis'){
             steps{
-                withCredentials([string(credentialsId:'sonartoken', variable:'sonartoken')]){
+                withCredentials([string(credentialsId:'sonartoken', variable:'tech365token')]){
                     sh 'mvn clean verify sonar:sonar -Dsonar.login=$tech365token -Dsonar.organization=tech365 -Dsonar.projectKey=tech365key_tech365 -Dsonar.host.url=https://sonarcloud.io'
                 }
             }

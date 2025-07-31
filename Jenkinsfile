@@ -5,22 +5,22 @@ pipeline{
     }
     stages{
 
-        stage('Prepare Workspace') {
-            steps {
-                cleanWs()
-                checkout scm
-            }
-        }
-        // sonar cloud analysis
-        // stage('CompileandRunSonarAnalysis'){
-        //     steps{
-        //         script {
-        //             withCredentials([string(credentialsId: 'tech365token', variable: 'tech365token')]) {
-        //                 sh 'mvn clean verify sonar:sonar -Dsonar.token=$tech365token -Dsonar.organization=tech3651 -Dsonar.projectKey=tech3651 -Dsonar.host.url=https://sonarcloud.io'
-        //             }
-        //         }
+        // stage('Prepare Workspace') {
+        //     steps {
+        //         cleanWs()
+        //         checkout scm
         //     }
         // }
+        // sonar cloud analysis
+        stage('Compile and Run Sonar Analysis'){
+            steps{
+                script {
+                    withCredentials([string(credentialsId: 'tech365token', variable: 'tech365token')]) {
+                        sh 'mvn clean verify sonar:sonar -Dsonar.token=$tech365token -Dsonar.organization=tech3651 -Dsonar.projectKey=tech3651 -Dsonar.host.url=https://sonarcloud.io'
+                    }
+                }
+            }
+        }
 
         // stage('Run scan analysis with Snyk '){
         //     steps{
@@ -52,11 +52,11 @@ pipeline{
             }
         }
 
-    //     post {
-    //     always {
-    //         cleanWs() // This will clean the workspace after every build
-    //     }
-    // }
+        post {
+        always {
+            cleanWs() // This will clean the workspace after every build
+        }
+    }
 
     }
 

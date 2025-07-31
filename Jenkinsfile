@@ -15,8 +15,8 @@ pipeline{
         stage('Compile and Run Sonar Analysis'){
             steps{
                 script {
-                    withCredentials([string(credentialsId: 'tech365token', variable: 'tech365token')]) {
-                        sh 'mvn clean verify sonar:sonar -Dsonar.token=$tech365token -Dsonar.organization=tech3651 -Dsonar.projectKey=tech3651 -Dsonar.host.url=https://sonarcloud.io'
+                    withCredentials([string(credentialsId: 'olisatoken', variable: 'olisatoken')]) {
+                        sh 'mvn clean verify sonar:sonar -Dsonar.token=$olisatoken -Dsonar.organization=olisa -Dsonar.projectKey=tech3651 -Dsonar.host.url=https://sonarcloud.io'
                     }
                 }
             }

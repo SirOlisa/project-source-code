@@ -4,6 +4,13 @@ pipeline{
         maven 'maven-3.8'
     }
     stages{
+
+        stage('Prepare Workspace') {
+            steps {
+                cleanWs()
+                checkout scm
+            }
+        }
         // sonar cloud analysis
         // stage('CompileandRunSonarAnalysis'){
         //     steps{
@@ -44,6 +51,12 @@ pipeline{
                 }
             }
         }
+
+    //     post {
+    //     always {
+    //         cleanWs() // This will clean the workspace after every build
+    //     }
+    // }
 
     }
 

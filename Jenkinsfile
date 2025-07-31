@@ -42,7 +42,7 @@ pipeline{
             }
         }
 
-        stage('Push Docker Image to Docker Hub'){
+        stage('Push Docker Image to ECR'){
             steps{
                 script{
                     docker.withRegistry('https://418272776333.dkr.ecr.us-east-1.amazonaws.com','ecr:us-east-1:aws-credentials') {

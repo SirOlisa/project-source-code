@@ -27,7 +27,7 @@ pipeline{
 
         stage('Build docker image'){
             steps{
-                withDockerRegistry(credentialsId:'dockerhubcred', url: '') {
+                withDockerRegistry([credentialsId:'dockerhubcred', url: '']) {
                     script{
                         app = docker.build("myapp")
                     }
@@ -37,8 +37,10 @@ pipeline{
 
         stage('Push Docker Image to Docker Hub'){
             steps{
-                docker.withRegistry('https://418272776333.dkr.ecr.us-east-1.amazonaws.com','ecr:us-east-1:aws-credentials') {
-                    app.push()
+                script{
+                    docker.withRegistry('https://418272776333.dkr.ecr.us-east-1.amazonaws.com','ecr:us-east-1:aws-credentials') {
+                    app.push("latest")
+                }
                 }
             }
         }

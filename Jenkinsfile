@@ -36,7 +36,7 @@ pipeline{
             steps{
                 withDockerRegistry([credentialsId:'dockerhubcred', url: '']) {
                     script{
-                        app = docker.build("myapp")
+                        app = docker.build("ci/cd-app")
                     }
                 }
             }
@@ -45,7 +45,7 @@ pipeline{
         stage('Push Docker Image to ECR'){
             steps{
                 script{
-                    docker.withRegistry('https://418272776333.dkr.ecr.us-east-1.amazonaws.com','ecr:us-east-1:aws-credentials') {
+                    docker.withRegistry('https://458879677621.dkr.ecr.us-east-1.amazonaws.com','ecr:us-east-1:aws-credentials') {
                     app.push("latest")
                 }
                 }

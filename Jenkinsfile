@@ -52,11 +52,12 @@ pipeline{
             }
         }
 
-        post {
-        always {
-            cleanWs() // This will clean the workspace after every build
+        // post stage to clean
+        stage('Clean up workspace'){
+            steps{
+                cleanWs()
+            }
         }
-    }
 
     }
 

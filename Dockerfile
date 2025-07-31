@@ -5,5 +5,5 @@ RUN mvn -B package
 
 FROM openjdk:8-slim
 COPY --from=builder /app/target/*.jar app.jar
-EXPOSE 8081
+EXPOSE 8080
 CMD ["java", "-jar", "app.jar"]

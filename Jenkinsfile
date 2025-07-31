@@ -4,7 +4,7 @@ pipeline{
         maven 'maven-3.8'
     }
     stages{
-        // sonar cloud analysis 
+        // sonar cloud analysis
         stage('CompileandRunSonarAnalysis'){
             steps{
                 script {
@@ -21,8 +21,29 @@ pipeline{
                     withCredentials([string(credentialsId: 'SNYK_TOKEN', variable: 'SNYK_TOKEN')]) {
                         sh "mvn snyk:test -fn"
                     }
-                 }
+                }
             }
         }
+
+        stage('Build docker image'){
+            steps{
+                withDockerRegistry(credentialsId:'dockerhubcred', url: '') {
+                    script{
+                        app = docker.build("myapp")
+                    }
+                }
+            }
+        }
+
+        stage('Push Docker Image to Docker Hub'){
+            steps{
+                docker.withRegistry('https://418272776333.dkr.ecr.us-east-1.amazonaws.com','ecr:us-east-1:aws-credentials') {
+                    app.push()
+                }
+            }
+        }
+
     }
+
+
 }

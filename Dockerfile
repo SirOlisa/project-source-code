@@ -1,4 +1,4 @@
-FROM maven:3:8-jdk-8 AS builder 
+FROM maven:3.8-jdk-8 AS builder 
 WORKDIR /app
 COPY . .
 RUN mvn -B package
